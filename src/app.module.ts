@@ -4,6 +4,7 @@ import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './user/user.schema';
+import { TodoModule } from './todos/todos.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,6 +20,7 @@ import { User, UserSchema } from './user/user.schema';
     }),
     AuthModule,
     UserModule,
+    TodoModule,
   ],
   controllers: [],
   providers: [],
