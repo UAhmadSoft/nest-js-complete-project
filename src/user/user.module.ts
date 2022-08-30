@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/user/user.schema';
 import bcrypt from 'bcryptjs';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
+import { LoggerMiddleware } from 'src/middlewares/logger';
 
 @Module({
   imports: [
