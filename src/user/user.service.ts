@@ -15,6 +15,21 @@ export class UserService {
     return users;
   }
 
+  validateRequest(username: string, password: string): Boolean {
+    // const user = await this.usersService.getUser({ username });
+    // if (!user) return null;
+    // const passwordValid = await bcrypt.compare(password, user.password);
+    // if (!user) {
+    //   throw new NotAcceptableException('could not find the user');
+    // }
+    // if (user && passwordValid) {
+    //   return user;
+    // }
+    // return null;
+
+    return false;
+  }
+
   async getOne(id: any) {
     const users = await this.userModel.findById(id);
     return users;

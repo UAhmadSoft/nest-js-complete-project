@@ -6,13 +6,16 @@ import {
   Param,
   ParamData,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Get('/')
+  @UseGuards(JwtAuthGuard)
   getAllUsers(): any {
     return this.userService.getAll();
   }
