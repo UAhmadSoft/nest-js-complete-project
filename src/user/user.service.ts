@@ -30,6 +30,11 @@ export class UserService {
     return false;
   }
 
+  async findOne(email) {
+    const users = await this.userModel.findOne({ email }).select('+password');
+    return users;
+  }
+
   async getOne(id: any) {
     const users = await this.userModel.findById(id);
     return users;

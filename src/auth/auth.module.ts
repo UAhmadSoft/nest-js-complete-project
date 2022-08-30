@@ -4,9 +4,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/user/user.schema';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
+import { LocalStrategy } from './local.strategy';
+import { JwtStrategy } from './jwt.strategy';
 
 const bcrypt = require('bcryptjs');
 
@@ -22,6 +24,8 @@ const jwtFactory = {
 
 @Module({
   imports: [
+    ConfigModule,
+    PassportModule,
     JwtModule.registerAsync(jwtFactory),
     MongooseModule.forFeatureAsync([
       {
@@ -47,6 +51,12 @@ const jwtFactory = {
     ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService],
+  providers: [
+    AuthService,
+    ConfigService,
+    UserService,
+    LocalStrategy,
+    JwtStrategy,
+  ],
 })
 export class AuthModule {}
