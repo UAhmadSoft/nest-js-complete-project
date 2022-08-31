@@ -8,6 +8,7 @@ import { User } from 'src/user/user.schema';
 import { UserService } from 'src/user/user.service';
 import { LoginDto } from './dto/login.dto';
 import { SignupDto } from './dto/signup.dto';
+import { LazyModuleLoader } from '@nestjs/core';
 const bcrypt = require('bcryptjs');
 
 @Injectable()
@@ -18,6 +19,7 @@ export class AuthService {
     private readonly jwtService: JwtService, // private jwtService: JwtService,
     private readonly usersService: UserService,
     private readonly configService: ConfigService,
+    private lazyModuleLoader: LazyModuleLoader,
   ) {}
 
   async signup(authDto: SignupDto) {

@@ -1,4 +1,5 @@
 import { Injectable, Req } from '@nestjs/common';
+import { LazyModuleLoader } from '@nestjs/core';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/user/user.schema';
@@ -8,6 +9,7 @@ export class UserService {
   constructor(
     @InjectModel(User.name)
     private userModel: Model<User>,
+    private lazyModuleLoader: LazyModuleLoader,
   ) {}
 
   async getAll() {
