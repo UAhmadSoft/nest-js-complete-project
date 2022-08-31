@@ -8,8 +8,10 @@ import { TodoModule } from './todos/todos.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { LoggerMiddleware } from './middlewares/logger';
+import { LoggerModule } from 'nestjs-pino';
 @Module({
   imports: [
+    LoggerModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['config.env'],
