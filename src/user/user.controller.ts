@@ -2,9 +2,12 @@ import { UserService } from './user.service';
 import {
   Controller,
   Delete,
+  FileTypeValidator,
   Get,
+  MaxFileSizeValidator,
   Param,
   ParamData,
+  ParseFilePipe,
   Patch,
   Post,
   Req,
@@ -50,8 +53,19 @@ export class UserController {
   @Patch('photo')
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('file'))
-  @UsePipes(FileSizeValidationPipe)
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
+  // @UsePipes(FileSizeValidationPipe)
+  uploadFile(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 70 * 1000 }),
+          new FileTypeValidator({ fileType: 'jpeg' }),
+          // ... Set of file validator instances here
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
     console.log('file', file);
   }
 }
