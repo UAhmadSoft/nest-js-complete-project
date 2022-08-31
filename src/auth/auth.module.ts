@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
-import { LocalStrategy } from './local.strategy';
+// import { LocalStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
 
 const bcrypt = require('bcryptjs');
@@ -55,7 +55,7 @@ const jwtFactory = {
     AuthService,
     ConfigService,
     UserService,
-    LocalStrategy,
+    // LocalStrategy,
     JwtStrategy,
   ],
 })
