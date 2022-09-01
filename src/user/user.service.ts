@@ -5,7 +5,8 @@ import { Model } from 'mongoose';
 import { InjectStripe } from 'nestjs-stripe';
 import { User } from 'src/user/user.schema';
 import Stripe from 'stripe';
-import { APIFeatures } from './apiFeatures.js';
+// import { APIFeatures } from './apiFeatures.js';
+import { APIFeatures } from '../helpers/apiFeatures.js';
 
 @Injectable()
 export class UserService {

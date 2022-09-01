@@ -1,7 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
-
-@Injectable()
 export class APIFeatures {
+  query;
+  queryString;
   constructor(query, queryString) {
     this.query = query;
     this.queryString = queryString;

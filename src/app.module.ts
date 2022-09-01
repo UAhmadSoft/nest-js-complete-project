@@ -9,6 +9,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { NotificationsGateway } from './notifications.gateway';
 import { StripeModule } from 'nestjs-stripe';
+import { APIFeatures } from './helpers/apiFeatures';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { StripeModule } from 'nestjs-stripe';
   ],
   controllers: [],
   providers: [
+    APIFeatures,
     NotificationsGateway,
     {
       provide: APP_GUARD,
