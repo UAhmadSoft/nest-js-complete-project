@@ -25,6 +25,7 @@ import { GetUser } from 'src/decorators/user.decorator';
 import { Roles } from 'src/decorators/roles.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizeValidationPipe } from 'src/pipes/FileValidationPipe';
+import { Request } from 'express';
 
 @Controller('users')
 export class UserController {
@@ -33,11 +34,11 @@ export class UserController {
   @Get('/')
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  getAllUsers(): any {
+  getAllUsers(@Req() req: Request): any {
     // getAllUsers(@GetUser() user, @Req() req): any {
     // console.log('req.user', req.user);
     // console.log('user', user);
-    return this.userService.getAll();
+    return this.userService.getAll(req);
   }
 
   @Get(':id')

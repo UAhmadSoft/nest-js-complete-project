@@ -3,6 +3,7 @@ import { LazyModuleLoader } from '@nestjs/core';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/user/user.schema';
+import { APIFeatures } from './apiFeatures.js';
 
 @Injectable()
 export class UserService {
@@ -10,27 +11,19 @@ export class UserService {
     @InjectModel(User.name)
     private userModel: Model<User>,
     private lazyModuleLoader: LazyModuleLoader,
-  ) {}
+  ) // private apiFeatures: APIFeatures,
+  {}
 
-  async getAll() {
-    const users = await this.userModel.find();
+  async getAll(req: any) {
+    const query = new APIFeatures(this.userModel.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate().query;
+
+    const users = await query;
     // console.log('req.user', req.user);
     return users;
-  }
-
-  validateRequest(username: string, password: string): Boolean {
-    // const user = await this.usersService.getUser({ username });
-    // if (!user) return null;
-    // const passwordValid = await bcrypt.compare(password, user.password);
-    // if (!user) {
-    //   throw new NotAcceptableException('could not find the user');
-    // }
-    // if (user && passwordValid) {
-    //   return user;
-    // }
-    // return null;
-
-    return false;
   }
 
   async findOne(email) {
