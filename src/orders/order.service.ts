@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { InjectStripe } from 'nestjs-stripe';
 import { Order } from 'src/orders/order.schema';
+import { Product } from 'src/products/product.schema.js';
 import Stripe from 'stripe';
 // import { APIFeatures } from './apiFeatures.js';
 import { APIFeatures } from '../helpers/apiFeatures.js';
@@ -34,10 +35,10 @@ export class OrderService {
     return orders;
   }
 
-  async createOne(body: Body, user: any) {
+  async createOne(body: any, user: any) {
     const orders = await this.orderModel.create({
       ...body,
-      user: user._id,
+      buyer: user._id,
     });
     return orders;
   }
@@ -64,17 +65,17 @@ export class OrderService {
     return orders;
   }
 
-  async makePayment() {
-    const session = this.stripeClient.checkout.sessions.create({
+  async makePayment(product: Product) {
+    const session = await this.stripeClient.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
         {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'T-shirt',
+              name: product.name,
             },
-            unit_amount: 2000,
+            unit_amount: product.price * 100,
           },
           quantity: 1,
         },
@@ -83,7 +84,7 @@ export class OrderService {
       success_url: 'https://example.com/success',
       cancel_url: 'https://example.com/cancel',
     });
-    return session;
+    return session.url;
   }
 
   async deleteOne(id: any, userId: any) {

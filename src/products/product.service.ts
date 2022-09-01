@@ -64,26 +64,32 @@ export class ProductService {
     return products;
   }
 
-  async makePayment() {
-    const session = this.stripeClient.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'T-shirt',
-            },
-            unit_amount: 2000,
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: 'https://example.com/success',
-      cancel_url: 'https://example.com/cancel',
-    });
-    return session;
+  async purchaseProduct(id: any) {
+    const product = await this.productModel.findById(id);
+
+    if (!product)
+      throw new NotFoundException(`Could not find product with id${id}.`);
+
+    return product;
+    // const session = this.stripeClient.checkout.sessions.create({
+    //   payment_method_types: ['card'],
+    //   line_items: [
+    //     {
+    //       price_data: {
+    //         currency: 'usd',
+    //         product_data: {
+    //           name: 'T-shirt',
+    //         },
+    //         unit_amount: 2000,
+    //       },
+    //       quantity: 1,
+    //     },
+    //   ],
+    //   mode: 'payment',
+    //   success_url: 'https://example.com/success',
+    //   cancel_url: 'https://example.com/cancel',
+    // });
+    // return session;
   }
 
   async deleteOne(id: any, userId: any) {

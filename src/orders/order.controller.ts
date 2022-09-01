@@ -16,6 +16,7 @@ import { RolesGuard } from 'src/auth/roles.guard';
 import { Request } from 'express';
 import { GetUser } from 'src/decorators/user.decorator';
 import { UserService } from 'src/user/user.service';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @Controller('orders')
 export class OrderController {
@@ -25,6 +26,7 @@ export class OrderController {
   ) {}
 
   @Get('/')
+  @UseGuards(AuthGuard('jwt'))
   async getAllOrders(@GetUser() user, @Req() req): Promise<any> {
     // console.log('req.user', req.user);
     // console.log('user', user);
@@ -42,7 +44,7 @@ export class OrderController {
   }
 
   @Delete(':id')
-  // @Roles('admin')
+  @Roles('admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   deleteOrder(@Param() params, @GetUser() user): any {
     return this.orderService.deleteOne(params.id, user._id);
@@ -53,11 +55,6 @@ export class OrderController {
   createOrder(@Body() body, @GetUser() user): any {
     // this.us;
     return this.orderService.createOne(body, user);
-  }
-
-  @Post('payment')
-  makePayment() {
-    return this.orderService.makePayment();
   }
 
   @Patch(':id')

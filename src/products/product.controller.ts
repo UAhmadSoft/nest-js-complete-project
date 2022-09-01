@@ -16,12 +16,14 @@ import { RolesGuard } from 'src/auth/roles.guard';
 import { Request } from 'express';
 import { GetUser } from 'src/decorators/user.decorator';
 import { UserService } from 'src/user/user.service';
+import { OrderService } from 'src/orders/order.service';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @Controller('products')
 export class ProductController {
   constructor(
     private productServices: ProductService,
-    private userService: UserService,
+    private orderService: OrderService,
   ) {}
 
   @Get('/')
@@ -56,9 +58,27 @@ export class ProductController {
     return this.productServices.createOne(body, user);
   }
 
-  @Post('payment')
-  makePayment() {
-    return this.productServices.makePayment();
+  @Post('/:id/purchase')
+  @Roles('user')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  async purchaseProduct(@Param() params, @GetUser() user): Promise<any> {
+    const product = await this.productServices.purchaseProduct(params.id);
+
+    const order = await this.orderService.createOne(
+      {
+        product: product._id,
+        seller: product.user,
+      },
+      user,
+    );
+
+    const url = await this.orderService.makePayment(product);
+
+    return {
+      status: 'success',
+      url,
+      order,
+    };
   }
 
   @Patch(':id')

@@ -6,10 +6,14 @@ import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
 import { UserService } from 'src/user/user.service';
 import { UserModule } from 'src/user/user.module';
+import { OrderModule } from 'src/orders/order.module';
+import { OrderService } from 'src/orders/order.service';
+import { Order, OrderSchema } from 'src/orders/order.schema';
 
 @Module({
   imports: [
     UserModule,
+    OrderModule,
     MongooseModule.forFeature([
       {
         name: Product.name,
@@ -19,9 +23,13 @@ import { UserModule } from 'src/user/user.module';
         name: User.name,
         schema: UserSchema,
       },
+      {
+        name: Order.name,
+        schema: OrderSchema,
+      },
     ]),
   ],
   controllers: [ProductController],
-  providers: [ProductService, UserService],
+  providers: [ProductService, UserService, OrderService],
 })
 export class ProductModule {}
