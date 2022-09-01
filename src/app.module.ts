@@ -8,8 +8,18 @@ import { LoggerMiddleware } from './middlewares/logger';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { NotificationsGateway } from './notifications.gateway';
+import { StripeModule } from 'nestjs-stripe';
+
 @Module({
   imports: [
+    StripeModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        apiKey: configService.get('STRIPE_SECRET_KEY'),
+        apiVersion: '2022-08-01',
+      }),
+      inject: [ConfigService],
+    }),
     ThrottlerModule.forRoot({
       ttl: 60 * 60 * 1000, // 1 minute
       limit: 100,

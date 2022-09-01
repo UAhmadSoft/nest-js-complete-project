@@ -51,6 +51,11 @@ export class UserController {
     return this.userService.deleteOne(params.id);
   }
 
+  @Post('payment')
+  makePayment() {
+    return this.userService.makePayment();
+  }
+
   @Patch('photo')
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('file'))
