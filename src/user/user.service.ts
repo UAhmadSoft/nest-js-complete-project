@@ -10,9 +10,8 @@ export class UserService {
   constructor(
     @InjectModel(User.name)
     private userModel: Model<User>,
-    private lazyModuleLoader: LazyModuleLoader,
-  ) // private apiFeatures: APIFeatures,
-  {}
+    private lazyModuleLoader: LazyModuleLoader, // private apiFeatures: APIFeatures,
+  ) {}
 
   async getAll(req: any) {
     const query = new APIFeatures(this.userModel.find(), req.query)
