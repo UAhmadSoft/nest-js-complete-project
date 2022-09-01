@@ -10,6 +10,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { NotificationsGateway } from './notifications.gateway';
 import { StripeModule } from 'nestjs-stripe';
 import { APIFeatures } from './helpers/apiFeatures';
+import { ProductModule } from './products/product.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { APIFeatures } from './helpers/apiFeatures';
     AuthModule,
     UserModule,
     TodoModule,
+    ProductModule,
   ],
   controllers: [],
   providers: [

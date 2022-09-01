@@ -34,11 +34,16 @@ export class UserController {
   @Get('/')
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  getAllUsers(@Req() req: Request): any {
+  async getAllUsers(@Req() req: Request): Promise<any> {
     // getAllUsers(@GetUser() user, @Req() req): any {
     // console.log('req.user', req.user);
     // console.log('user', user);
-    return this.userService.getAll(req);
+    const users = await this.userService.getAll(req);
+    return {
+      status: 'success',
+      results: users.length,
+      users,
+    };
   }
 
   @Get(':id')
