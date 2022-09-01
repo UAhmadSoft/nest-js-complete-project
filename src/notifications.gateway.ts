@@ -6,9 +6,7 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 
-@WebSocketGateway({
-  namespace: 'notifications',
-})
+@WebSocketGateway()
 export class NotificationsGateway
   implements OnGatewayConnection, OnGatewayDisconnect
 {
@@ -33,8 +31,9 @@ export class NotificationsGateway
     this.server.emit('users', this.users);
   }
 
-  @SubscribeMessage('chat')
+  @SubscribeMessage('message')
   async onChat(client, message) {
+    console.log('message', message);
     client.broadcast.emit('chat', message);
   }
 }
