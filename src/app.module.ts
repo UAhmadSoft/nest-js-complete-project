@@ -11,6 +11,7 @@ import { NotificationsGateway } from './notifications.gateway';
 import { StripeModule } from 'nestjs-stripe';
 import { APIFeatures } from './helpers/apiFeatures';
 import { ProductModule } from './products/product.module';
+import { OrderModule } from './orders/order.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { ProductModule } from './products/product.module';
     UserModule,
     TodoModule,
     ProductModule,
+    OrderModule,
   ],
   controllers: [],
   providers: [
