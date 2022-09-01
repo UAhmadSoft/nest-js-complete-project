@@ -4,11 +4,14 @@ import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
+import { SocketAdapter } from './socket.adapter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
+  app.useWebSocketAdapter(new SocketAdapter());
+
   app.use(helmet());
-  app.enableCors();
+  // app.enableCors();
   app.use(cookieParser());
   const configService = app.get<ConfigService>(ConfigService);
 

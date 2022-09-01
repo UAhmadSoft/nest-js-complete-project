@@ -17,7 +17,7 @@ import { APP_GUARD } from '@nestjs/core';
       ttl: 60 * 60 * 1000, // 1 minute
       limit: 100,
     }),
-    LoggerModule.forRoot(),
+    // LoggerModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['config.env'],
