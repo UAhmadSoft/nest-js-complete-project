@@ -65,7 +65,7 @@ export class OrderService {
     return orders;
   }
 
-  async makePayment(product: Product) {
+  async makePayment(product: Product, orderId: string) {
     const session = await this.stripeClient.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -80,6 +80,9 @@ export class OrderService {
           quantity: 1,
         },
       ],
+      metadata: {
+        orderId,
+      },
       mode: 'payment',
       success_url: 'https://example.com/success',
       cancel_url: 'https://example.com/cancel',

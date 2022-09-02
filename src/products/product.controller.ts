@@ -72,7 +72,7 @@ export class ProductController {
       user,
     );
 
-    const url = await this.orderService.makePayment(product);
+    const url = await this.orderService.makePayment(product, order.id);
 
     return {
       status: 'success',

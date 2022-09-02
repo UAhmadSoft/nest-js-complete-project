@@ -12,9 +12,16 @@ import { StripeModule } from 'nestjs-stripe';
 import { APIFeatures } from './helpers/apiFeatures';
 import { ProductModule } from './products/product.module';
 import { OrderModule } from './orders/order.module';
+import { Order, OrderSchema } from './orders/order.schema';
 
 @Module({
   imports: [
+    MongooseModule.forFeature([
+      {
+        name: Order.name,
+        schema: OrderSchema,
+      },
+    ]),
     StripeModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
