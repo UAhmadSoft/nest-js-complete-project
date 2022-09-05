@@ -6,14 +6,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TodoModule } from './todos/todos.module';
 import { LoggerMiddleware } from './middlewares/logger';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { NotificationsGateway } from './notifications.gateway';
 import { StripeModule } from 'nestjs-stripe';
 import { APIFeatures } from './helpers/apiFeatures';
 import { ProductModule } from './products/product.module';
 import { OrderModule } from './orders/order.module';
 import { Order, OrderSchema } from './orders/order.schema';
-
+import { AllExceptionsFilter } from './helpers/all-exceptions-filter';
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -59,6 +59,10 @@ import { Order, OrderSchema } from './orders/order.schema';
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
     },
   ],
 })
