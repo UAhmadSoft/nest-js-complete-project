@@ -1,0 +1,592 @@
+{
+	"info": {
+		"_postman_id": "7b97a956-5e78-4306-8319-543b9c67b518",
+		"name": "Nest-Complete-App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9624369"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\" : \"Ali\",\r\n    \"lastName\" : \"Ahmad\",\r\n    \"email\" :\"Ali@Gmail.com\",\r\n    \"password\" :\"pass1234\",\r\n    \"passwordConfirm\" : \"pass1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/signUp",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('token',\r",
+									"pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"azhar@gmail.com\",\r\n    \"password\" :\"pass1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users?fields=firstName,lastName",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "firstName,lastName"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Make Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/payment",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Profile Picture",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/photo",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"photo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/6304cfcfe43f7c0f9152db40",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"6304cfcfe43f7c0f9152db40"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete A User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/6304cfcfe43f7c0f9152db40",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"6304cfcfe43f7c0f9152db40"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/products?fields=name,price&sort=-price",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "name,price"
+								},
+								{
+									"key": "sort",
+									"value": "-price"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Purcase Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/products/:id/purchase",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products",
+								":id",
+								"purchase"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6310a2a29b0817f3822ac8ab"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Profile Picture",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/photo",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"photo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/6304cfcfe43f7c0f9152db40",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"6304cfcfe43f7c0f9152db40"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete A Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/products/6310a2a29b0817f3822ac8ab",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products",
+								"6310a2a29b0817f3822ac8ab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"{{$randomProductName}}\",\r\n    \"price\" : \"{{$randomPrice}}\",\r\n    \"description\" :\"{{description}}\",\r\n    \"inStock\" : \"{{$randomBoolean}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/products",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Get My Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/orders",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Make Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/payment",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Profile Picture",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/photo",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"photo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/6304cfcfe43f7c0f9152db40",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"6304cfcfe43f7c0f9152db40"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete A Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/products/6310a2a29b0817f3822ac8ab",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products",
+								"6310a2a29b0817f3822ac8ab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"{{$randomProductName}}\",\r\n    \"price\" : \"{{$randomPrice}}\",\r\n    \"description\" :\"{{description}}\",\r\n    \"inStock\" : \"{{$randomBoolean}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/products",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Todos",
+			"item": [
+				{
+					"name": "Create Todo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\" : \"Ali\",\r\n    \"lastName\" : \"Ahmad\",\r\n    \"email\" :\"Ali@Gmail.com\",\r\n    \"password\" :\"pass1234\",\r\n    \"passwordConfirm\" : \"pass1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/signUp",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Todo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\" : \"Ali\",\r\n    \"lastName\" : \"Ahmad\",\r\n    \"email\" :\"Ali@Gmail.com\",\r\n    \"password\" :\"pass1234\",\r\n    \"passwordConfirm\" : \"pass1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/signUp",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Todo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/todos/6305dfafcfcdb4133fce45aa",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"todos",
+								"6305dfafcfcdb4133fce45aa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete A Todo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/todos/6305dfafcfcdb4133fce45aa",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"todos",
+								"6305dfafcfcdb4133fce45aa"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
